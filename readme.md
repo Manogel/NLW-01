@@ -45,7 +45,7 @@ That aims to connect people to companies that collect specific waste such as lig
     <img alt="Example" title="Example" src="docs/banner.svg" width="500px" />
 </h1>
 
-## :rocket: Technologies
+## 🔨 Technologies
 
 This project was developed with the following technologies:
 
@@ -59,7 +59,7 @@ This project was developed with the following technologies:
 
 To access the layout use [Figma](https://www.figma.com/file/1SxgOMojOB2zYT0Mdk28lB/).
 
-## :information_source: How To Use
+## 🚀 How To Use
 
 To clone and run this application, you'll need [Git](https://git-scm.com), [Node.js][nodejs] + [Yarn][yarn] installed on your computer.
 
