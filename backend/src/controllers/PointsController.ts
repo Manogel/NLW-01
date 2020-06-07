@@ -17,8 +17,7 @@ class PointsController {
     const trx = await Knex.transaction();
 
     const point = {
-      image:
-        "https://energiaarion.com.br/wp-content/uploads/2019/03/mercado-litoral-regiao-oceanica-laticinios-1424x800.jpg",
+      image: request.file.filename,
       name,
       email,
       whatsapp,
@@ -32,10 +31,13 @@ class PointsController {
 
     const point_id = insertedIds[0];
 
-    const pointItems = items.map((item_id: number) => ({
-      item_id,
-      point_id,
-    }));
+    const pointItems = items
+      .split(",")
+      .map((item: string) => Number(item.trim()))
+      .map((item_id: number) => ({
+        item_id,
+        point_id,
+      }));
 
     await trx("point_items").insert(pointItems);
 
@@ -61,7 +63,12 @@ class PointsController {
       .where("point_items.point_id", id)
       .select("items.title");
 
-    return response.json({ point, items });
+    const serializedPoint = {
+      ...point,
+      image_url: `${process.env.APP_URL}/uploads/${point.image}`,
+    };
+
+    return response.json({ point: serializedPoint, items });
   }
 
   async index(request: Request, response: Response) {
@@ -79,7 +86,12 @@ class PointsController {
       .distinct()
       .select("points.*");
 
-    return response.json(points);
+    const serializedPoints = points.map((point) => ({
+      ...point,
+      image_url: `${process.env.APP_URL}/uploads/${point.image}`,
+    }));
+
+    return response.json(serializedPoints);
   }
 }
 
